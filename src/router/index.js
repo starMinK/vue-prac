@@ -1,9 +1,7 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import Example from '@/components/Example.vue';
-
-// createApp(App).mount('#app')
 
 const router = createRouter({
     history: createWebHistory(),
@@ -11,11 +9,11 @@ const router = createRouter({
         {
             path: '/',
             name: 'Example',
-            component: Example
+            component: Example,
         }
     ]
-});
+})
 
 const app = createApp(App);
 app.use(router);
-app.mount('#app')
+app.mount('#app');
