@@ -29,10 +29,6 @@
 <br/>  
 
 # 1-1. Vue의 데이터바인딩
-
-<details>
-<summary>내용 보기</summary>
-
 **데이터바인딩**이란 자바스크립트 변수나 데이터를 HTML에 꽂아넣는 것을 말합니다.  
   
 <br/>  
@@ -111,8 +107,6 @@ export default {
 
 <p align="left><img src="src/assets/readme/result1-1-2.png" height="500px" width="700px"></p>
 
-</details>
-
 <br/>
 
 ---
@@ -120,6 +114,9 @@ export default {
 <br/>
 
 # 1-2. Vue의 반복문 v-for  
+
+<details>
+<summary>내용 보기</summary>
 
 ```html
 <div class="menu">
@@ -191,6 +188,8 @@ export default {
 
 <br/>
 
+</details>
+
 <br/>  
 
 ---
@@ -198,6 +197,10 @@ export default {
 <br/>  
 
 # 1-3. Vue의 이벤트 핸들러
+
+<details>
+<summary>내용 보기</summary>
+
 ### 버튼을 누르면 기능을 실행하고 싶은 경우
 
 > **자바스크립트**의 경우
@@ -257,7 +260,20 @@ export default {
     </div>
 </template>
 ```
+
+</details>
+
+<br/>
+
+---
+
+<br/>
+
 # 1-4. Vue의 조건문 v-if
+
+<details>
+<summary>내용 보기</summary>
+
 Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
 ```html
 <div class="modal" v-if="modalStatus == true">
@@ -287,13 +303,93 @@ Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
         </div>
     </template>
    ```
+   
+   </details>
+   
+   <br/>
+   
+   ---
+   
+   <br/>
+   
 # 1-5. import/export
+<details>
+<summary>내용 보기</summary>  
+
 Html에서는 보편적으로 html, css, js가 전부 들어가면 코드가 너무 길어지기 때문에 파일을 분리합니다.   
-그럴때 쓰이는것이 **import(불러오기)/export(내보내기)**입니다.   
+그럴때 쓰이는것이 import(불러오기)/export(내보내기)입니다.   
 
 자바스크립트에서 사용법과 Vue에서의 차이점을 알아봅시다.   
 
+> 자바스크립트에서의 import / export
+```js
+//선언부 앞에 export 붙이기
 
+// 📁 say.js
+export function sayHi() { ... }
+export function sayBye() { ... }
+export function becomeSilent() { ... }
+
+// 📁 main.js
+import {sayHi, sayBye} from './say.js';
+```
+
+<br/>
+
+> Vue에서의 import / export
+```js
+//📁 say.js
+export default sayHi() { ... }
+```
+```html
+<!--📁 App.vue-->
+<script>
+import [작명] from './say.js';
+</script>
+```
+Vue는 export default 옆에 내보낼 변수나 자료형을 입력하면 됩니다.   
+1. export default는 파일 맨마지막에 딱 한번 사용가능하고   
+2. import시 작명은 자유롭게 가능합니다.   
+
+
+> Vue에서의 import / export{} 문법
+```js
+// 📁 apple.js
+let apple = 10;
+let apple2 = 100;
+export {apple, apple2}
+```
+```html
+<!--📁 App.vue-->
+import [작명] from './apple.js';
+</script>
+```
+
+1. export는 원하는 만큼 사용할 수 있습니다.   
+2. export{}문법으로 받아올 시에는 작명이 불가능하고 export 했던 변수 혹은 함수명을 그래도 적어야합니다.
+
+### import로 받아온 데이터 사용하는 법
+```html
+<!--📁 App.vue-->
+<script>
+import data from './oneroom.js파일경로'
+
+data(){
+  return {
+    data : data //data는 방 정보가 담겨있는 배열이라고 생각해봅시다.
+  }
+}
+</script>
+
+<template>
+    <div>
+      <h4>{{data[0].title}}</h4>
+      <p>{{data[0].price}}</p>
+    </div>
+</template>
+```
+
+</details>
 
 # 1-6. 모달창 만들기
 
