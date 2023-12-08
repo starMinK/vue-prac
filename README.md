@@ -104,8 +104,9 @@ export default {
 ```
 
 > 결과
-  
-<p align="left><img src="src/assets/readme/result1-1-2.png"></p>
+
+<p align="left><img src="src/assets/readme/result1-1-2.png" height="500px" width="700px"></p>
+
 <br/>
 
 ---
