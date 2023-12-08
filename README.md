@@ -2,6 +2,8 @@
 # 🍎인스타그램을 만들며 배워보는 Vue.js 3 완벽 가이드
 > **tutor**: 코딩애플  
 > link: [coding apple](https://codingapple.com/course/vue-js/)
+> > 하단에 부족한 내용은 차차 채워갈 예정입니다.
+> > ps. 시작했음 끝은 봐보자..
 ---
   <p align="center"><img src="https://codingapple.com/wp-content/uploads/2021/05/%EC%83%81%ED%92%88%EC%82%AC%EC%A7%84-44.png" height="600px" width="1000px"></p>  
   
