@@ -29,6 +29,10 @@
 <br/>  
 
 # 1-1. Vue의 데이터바인딩
+
+<details>
+<summary>내용 보기</summary>
+
 **데이터바인딩**이란 자바스크립트 변수나 데이터를 HTML에 꽂아넣는 것을 말합니다.  
   
 <br/>  
@@ -107,6 +111,8 @@ export default {
 
 <p align="left><img src="src/assets/readme/result1-1-2.png" height="500px" width="700px"></p>
 
+</details>
+
 <br/>
 
 ---
@@ -114,7 +120,8 @@ export default {
 <br/>
 
 # 1-2. Vue의 반복문 v-for  
-```
+
+```html
 <div class="menu">
     <a v-for="[작명] in 3" :key="[작명]">Home</a>
 </div>
@@ -149,9 +156,9 @@ item과 itemList는 변수명, 리스트명이며 마음대로 작명할 수 있
 <br/>
 <br/>
 Vue의 반복문 v-for도 이와 같은 원리로 [작명] 부분이 변수를 선언하는 부분이며  
-'3' 부분에 반복할 수 혹은 List를 넣을 수 있습니다.  
+'3' 부분에 반복할 수 또는 List와 같은 배열을 넣을 수 있습니다.  
 <br/>
-따라서 반복되는 수 '3'를 넣은 경우 들어간 데이터([작명])가 3번 똑같이 반복되며
+따라서 반복되는 수 '3'를 넣은 경우 들어간 데이터([작명])가 3번 반복되며
 List를 넣은경우는 데이터에 List안의 값이 순서대로 들어가며 List.length() 만큼 반복됩니다.
 
 ```html
@@ -191,10 +198,102 @@ export default {
 <br/>  
 
 # 1-3. Vue의 이벤트 핸들러
+### 버튼을 누르면 기능을 실행하고 싶은 경우
 
+> **자바스크립트**의 경우
+
+```html
+<script>
+function hello() {
+    alert("안녕하세요");
+}
+</script>
+
+<body>
+    <button onclick="hello()">Say Hello!!</button>
+</body>
+```
+   
+<br/>   
+   
+> **Vue**의 경우
+
+```html
+<div>
+  <button @click="alert('안녕하세요.')">Say Hello!!</button>
+</div>
+```
+
+<br/>
+
+클릭했을때 실행되는 **@click**이외에 마우스를 올렸을때 실행되는 **@mouseover**
+인풋값에 값을 입력할때마다 실행되는 **@input** 등 많은 이벤트 핸들러도 만들 수 있습니다.   
+   
+또한 실행되어야 하는 코드가 길 경우 함수로 만들어서 사용할 수도 있습니다.
+
+> 예제
+
+```html
+<script>
+export default {
+    data(){
+      return {
+        reportCount : 0,
+      },
+    },
+    methods : { 
+      increase(){ 
+        <!--methods에서 선언된 함수에서 data()에 선언된 변수를 사용하려면 꼭 this.을 앞에 붙여야합니다.-->
+        this.reportCount += 1 
+      } 
+    }
+}
+
+</script>
+<template>
+    <div>
+      <button @click="increase()")">REPORT!</button>
+      <span>신고수: {{ reportCount }}</span>
+    </div>
+</template>
+```
 # 1-4. Vue의 조건문 v-if
-
+Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
+```html
+<div class="modal" v-if="modalStatus == true">
+```
+   
+   만약 조건식의 반환값이 true라면 해당 태그는 노출되고 그렇지 않다면 아예 보이지 않습니다.
+   
+   > 실제 사용 예제
+   ```html
+    <script>
+        export default(){
+            data() {
+                return{
+                    modalStatus: true,
+                }
+            }
+        }
+    </script>
+    
+    <template>
+        <div class="black-bg" v-if="modalStatus == true">
+          <div class="white-bg">
+            <h4>상세페이지</h4>
+            <p>상세페이지내용임</p>
+            <button @click="modalStatus = false">모달창 닫기</button>
+          </div>
+        </div>
+    </template>
+   ```
 # 1-5. import/export
+Html에서는 보편적으로 html, css, js가 전부 들어가면 코드가 너무 길어지기 때문에 파일을 분리합니다.   
+그럴때 쓰이는것이 **import(불러오기)/export(내보내기)**입니다.   
+
+자바스크립트에서 사용법과 Vue에서의 차이점을 알아봅시다.   
+
+
 
 # 1-6. 모달창 만들기
 
