@@ -107,6 +107,7 @@ div {
 .menu > a {
   color: white;
   padding: 10px;
+  height: ;
 }
 
 .fade-enter-from {
