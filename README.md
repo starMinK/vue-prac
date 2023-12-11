@@ -2,8 +2,6 @@
 # 🍎인스타그램을 만들며 배워보는 Vue.js 3 완벽 가이드
 > **tutor**: 코딩애플  
 > link: [coding apple](https://codingapple.com/course/vue-js/)
-> > 하단에 부족한 내용은 차차 채워갈 예정입니다.   
-> > ps. 시작했음 끝은 봐보자..
 ---
   <p align="center"><img src="https://codingapple.com/wp-content/uploads/2021/05/%EC%83%81%ED%92%88%EC%82%AC%EC%A7%84-44.png" height="600px" width="1000px"></p>  
   
@@ -107,7 +105,7 @@ export default {
 
 > 결과
 
-<p align="left><img src="src/assets/readme/result1-1-2.png" height="500px" width="700px"></p>
+<p align="left"><img src="src/assets/readme/result1-1-2.png"></p>  
 
 <br/>
 
@@ -393,7 +391,106 @@ data(){
 
 </details>
 
+<br/>
+
+---
+
+<br/>
+
 # 1-6. 모달창 만들기
+
+<details>
+<summary>내용 보기</summary>
+
+저희는 예전에 [1-4. Vue의 조건문 v-if](#1\-4.-Vue의-조건문-v\-if) 에서 간단히 모달창을 만들어 본적이 있습니다.
+
+> 이전 코드 예제
+
+```
+ <script>
+     export default(){
+         data() {
+             return{
+                 modalStatus: true,
+             }
+         }
+     }
+ </script>
+ 
+ <template>
+     <div class="black-bg" v-if="modalStatus == true">
+       <div class="white-bg">
+         <h4>상세페이지</h4>
+         <p>상세페이지내용임</p>
+         <button @click="modalStatus = false">모달창 닫기</button>
+       </div>
+     </div>
+ </template>
+```
+
+위 코드를 **첫째 상품을 누르면 첫째 상품의 제목, 가격, 설명**
+**둘째 상품을 누르면 둘째 상품의 제목, 가격, 설명**
+...
+이런식으로 코드를 변경해 봅시다.
+
+```html
+ <script>
+     export default(){
+         /*
+         data() : 코드에서 쓰일 변수들을 선언 및 저장해놓는 공간입니다.   
+            modalStatus: 모달창이 열려야하는지 확인하기 위해 필요한 변수입니다.   
+            products: 상품 정보 데이터를 저장시켜 놓은 2차원 배열입니다.
+            <!--데이터같이 많은 코드를 필요로 하는 코드는 따로 분리하여 import를 해오면 좋습니다.-->
+            modalSelect: 어떤 상품을 선택했는지 구분하기 위해 필요한 변수입니다.
+        */
+         data() {
+             return{
+                 modalStatus: true,
+                 products: {
+                     [id: 0, title: "sweet home", price: 10000, content: "스위트홈. 귀신 출몰 주의", image: "https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/12/urbanbrush-20221214144619159434.jpg"],
+                     [id: 1, title: "goat home", price: 850000, content: "-GOAT-", image: "https://www.urbanbrush.net/web/wp-content/uploads/edd/2022/12/urbanbrush-20221214144619159434.jpg"],
+                     [id: 2, title: "faker home", price: NaN, content: "감히 범접하려 들지 말라", image: "https://upload3.inven.co.kr/upload/2023/11/12/bbs/i15093764331.png?MW=800"]
+                 },
+                 modalSelect: 0,
+             }
+         }, 
+     }
+ </script>
+ 
+ <template>
+    <!-- 모달 창-->
+  <div class="black-bg" v-if="modalStatus == true">
+    <div class="white-bg">
+      <h4>{{ products[].title }}</h4>
+      <p>{{ products[].content }}</p>
+      <p>{{ products[].price }}원</p>
+      <button @click="modalStatus = false">모달창 닫기</button>
+    </div>
+  </div>
+ 
+  <!--product_card가 products.length만큼 생성됩니다.-->
+  <div class="product_card" v-for="(product,i) in products" :key="product" :product="products[i]">
+    <img :src="product.image" alt="상품 이미지입니다." class="roomImg">
+    <!--@click 이벤트리스터를 통해 클릭했을때 modalStatus가 true, modalSelect에 i(인덱스)가 들어가게 됩니다.-->
+    <h4 @click = "modalStatus = true; modalSelect = i")>{{ product.title }}</h4>
+    <p>{{ product.price }}원</p>
+  </div>
+ </template>
+```
+    
+> 결과
+
+<p align="center"><img src="src/assets/readme/result1-6-1.gif"></p>  
+
+<br/>
+
+</details>
+
+<br/>
+
+---
+
+<br/>
 
 # 1-7. 컴포넌트(Component)
 
