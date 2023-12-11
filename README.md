@@ -3,7 +3,7 @@
 > **tutor**: 코딩애플  
 > link: [coding apple](https://codingapple.com/course/vue-js/)
 ---
-  <p align="center"><img src="https://codingapple.com/wp-content/uploads/2021/05/%EC%83%81%ED%92%88%EC%82%AC%EC%A7%84-44.png" height="600px" width="1000px"></p>  
+  <p align="center"><img src="https://codingapple.com/wp-content/uploads/2021/05/%EC%83%81%ED%92%88%EC%82%AC%EC%A7%84-44.png" height="450px" width="1000px"></p>  
   
 ## 목차  
 1. PART1  
