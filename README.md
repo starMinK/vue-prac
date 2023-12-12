@@ -411,7 +411,7 @@ data(){
 # 1-6. 모달창 만들기
 
 <details>
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
 저희는 예전에 [1-4. Vue의 조건문 v-if](#1\-4-Vue의-조건문-v\-if) 에서 간단히 모달창을 만들어 본적이 있습니다.   
 
