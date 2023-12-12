@@ -1039,7 +1039,7 @@ export default {
 
 <br/>
 
-> <Trasition>을 사용했을 때
+> Trasition을 사용했을 때
 ```html
 <template>
     <Transition name="modal"> 
