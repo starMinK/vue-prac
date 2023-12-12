@@ -827,6 +827,7 @@ props: {
 @[자식 컴포넌트에서 $emit('closeModal') 이라는 요청을 보내면] = ["modalStatus = flase 로 만들어라."]
 -->
 <Modal @closeModal="modalStatus = false"  />
+
 ```
 
 <details>
@@ -965,8 +966,32 @@ export default {
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+### Watcher(감시자)란
+말 그래도 데이터를 감시하는 감시자입니다.
+watch:{} 라는 항목을 신설해서 거기다가 작성하게 되면 어떤 데이터를 계속 감시하고   
+**변경될 때 마다 실행되는 코드**를 작성할 수 있게 됩니다.   
 
+> 예제
+```html
+<script>
+export default {
+    data{} {
+        return {
+            month: 1,
+            modalStatus : false,
+        }
+    },
+    watch : {
+        month() {
+            // month가 변경될때 마다 실행되는 코드
+        },
+        modalStatus() {
+            // modalStatus가 변경될때 마다 실행되는 코드
+        }
+    }
+}
+</script>
+```
 </details>
 
 <br/>
@@ -981,8 +1006,70 @@ export default {
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+## Transition   
+Transition는 Vue가 제공하는 애니메이션 태그입니다.
 
+> 쌩 css로 애니메이션 제작
+```html
+<script>
+    export default {
+        data() {
+            return {
+                modalStatus: false;
+            }
+        }
+    }
+</script>
+
+<template>
+<!-- :class 이벤트핸들러를 통해 modalStatus가 true이면 end라는 클래스명을 추가-->
+    <div class="start" :class ="{end : modalStatus}"> </div>
+</template>
+
+<style>
+    .start {
+        opacity: 0; //투명도
+        transition: all 1s; //애니메이션 시간
+    }
+    
+    .end {
+        opacity: 1; //투명도
+    }
+</style>
+```
+
+<br/>
+
+> Trasition을 사용했을 때
+```html
+<template>
+    <Transition name="modal"> 
+        <!--(생략)-->
+    </Transition>
+</template>
+
+<style>
+    <!--.[클래스명]-enter-form-->
+    .modal-enter-form {
+        <!--애니메이션 동작 전 상태-->
+        opacity: 0;
+    }
+    
+    <!--.[클래스명]-active-->
+    .modal-active {
+        <!--
+        애니메이션 동작 중 상태. 대부분 transition과 같은 것이 들어갑니다.-->
+        transition: all 1s;
+    }
+    
+    <!--.[클래스명]-enter-to-->
+    .modal-enter-to {
+        <!--애니메이션 동작 후 상태-->
+        opacity: 1;
+    }
+</style>
+    
+```
 </details>
 
 <br/>
