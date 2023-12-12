@@ -2,6 +2,7 @@
 # 🍎인스타그램을 만들며 배워보는 Vue.js 3 완벽 가이드
 > **tutor**: 코딩애플  
 > link: [coding apple](https://codingapple.com/course/vue-js/)
+> > 해당 글은 전부 코딩애플님의 강의를 보며 정리한 글입니다.
 ---
   <p align="center"><img src="https://codingapple.com/wp-content/uploads/2021/05/%EC%83%81%ED%92%88%EC%82%AC%EC%A7%84-44.png" height="500px" width="1000px"></p>  
   
@@ -229,10 +230,12 @@ function hello() {
 
 <br/>
 
-클릭했을때 실행되는 **@click**이외에 마우스를 올렸을때 실행되는 **@mouseover**
+클릭했을때 실행되는 **@click**이외에 마우스를 올렸을때 실행되는 **@mouseover**   
 인풋값에 값을 입력할때마다 실행되는 **@input** 등 많은 이벤트 핸들러도 만들 수 있습니다.   
    
-또한 실행되어야 하는 코드가 길 경우 함수로 만들어서 사용할 수도 있습니다.
+또한 실행되어야 하는 코드가 길 경우 함수로 만들어서 사용할 수도 있습니다.   
+
+<br/>
 
 > 예제
 
@@ -281,6 +284,8 @@ Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
    
    만약 조건식의 반환값이 true라면 해당 태그는 노출되고 그렇지 않다면 아예 보이지 않습니다.
    
+   <br/>
+   
    > 실제 사용 예제
    ```html
     <script>
@@ -318,8 +323,10 @@ Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
 
 Html에서는 보편적으로 html, css, js가 전부 들어가면 코드가 너무 길어지기 때문에 파일을 분리합니다.   
 그럴때 쓰이는것이 import(불러오기)/export(내보내기)입니다.   
-
+<br/>
 자바스크립트에서 사용법과 Vue에서의 차이점을 알아봅시다.   
+
+<br/>
 
 > 자바스크립트에서의 import / export
 ```js
@@ -341,12 +348,16 @@ import {sayHi, sayBye} from './say.js';
 //📁 say.js
 export default sayHi() { ... }
 ```
+
 ```html
 <!--📁 App.vue-->
 <script>
 import [작명] from './say.js';
 </script>
 ```
+
+<br/>
+
 Vue는 export default 옆에 내보낼 변수나 자료형을 입력하면 됩니다.   
 1. export default는 파일 맨마지막에 딱 한번 사용가능하고   
 2. import시 작명은 자유롭게 가능합니다.   
@@ -402,7 +413,9 @@ data(){
 <details>
 <summary>내용 보기</summary>
 
-저희는 예전에 [1-4. Vue의 조건문 v-if](#1\-4-Vue의-조건문-v\-if) 에서 간단히 모달창을 만들어 본적이 있습니다.
+저희는 예전에 [1-4. Vue의 조건문 v-if](#1\-4-Vue의-조건문-v\-if) 에서 간단히 모달창을 만들어 본적이 있습니다.   
+
+<br/>
 
 > 이전 코드 예제
 
@@ -428,10 +441,13 @@ data(){
  </template>
 ```
 
-위 코드를 **첫째 상품을 누르면 첫째 상품의 제목, 가격, 설명**
+<br/>
+
+위 코드를 **첫째 상품을 누르면 첫째 상품의 제목, 가격, 설명**   
 **둘째 상품을 누르면 둘째 상품의 제목, 가격, 설명**
-...
-이런식으로 코드를 변경해 봅시다.
+이런식으로 코드를 변경해 봅시다.   
+
+<br/>
 
 ```html
  <script>
@@ -501,11 +517,17 @@ data(){
 **원하는 HTML 덩어리를 한 글자로 축약**할 수 있게 도와주는 문법입니다.   
 <br/>
 
-컴포넌트를 만드는 방법은 html에서 css와 js를 파일을 분리시켜 import, export 해오는 것과 같은 원리입니다.
-example.vue 파일을 아무데너 만든 후 축약할 HTML을 붙여넣어주면 됩니다.
+컴포넌트를 만드는 방법은 html에서 css와 js를 파일을 분리시켜 import, export 해오는 것과 같은 원리입니다.   
+example.vue 파일을 아무데너 만든 후 축약할 HTML을 붙여넣어주면 됩니다.   
 
+<br/>
 
 앞서 작성한 모달창과 카드를 같이 가지고 있는 코드를 들고와 컴포넌트를 적용시켜 봅시다.   
+
+<br/>
+
+> 앞서 작성한 모달창 코드
+
 ```html
  <script>
      export default(){
@@ -540,6 +562,141 @@ example.vue 파일을 아무데너 만든 후 축약할 HTML을 붙여넣어주�
   </div>
  </template>
 ```
+
+<br/>
+
+> 컴포넌트를 적용한 모달창 코드
+
+```html
+<!--📁 App.vue-->
+<script>
+//import [작명] from "/경로";
+import Modal from "./components/Modal.vue";
+import products from "./assests/oneroom";
+
+export default {
+    name: 'App',
+},
+data() {
+    return {
+        // ./assests/oneroom.js를 import해온 products를 선언한 변수 products에 넣는다.
+        products: products
+    }
+}
+</script>
+
+<template>
+    <Modal :products="products" :click="click" :modalStatus="modalStatus" @closeModal="modalStatus = false"></Modal>
+    
+</template>
+```
+
+<details>
+<summary> 📁 Modal.vue </summary>
+
+```html
+
+<br/>
+
+<!--📁 Modal.vue-->
+<script>
+export default {
+  name: 'Modal',
+  //props는 자식 객체에서 부모 객체를 사용하기 위해 사용됩니다.
+  //더 자세한 내용은 1-8 Props챕터에서 다뤄보도록 합시다.
+  props: {
+    products: Array,
+    click: Number,
+    modalStatus: Boolean,
+  },
+}
+</script>
+<template>
+  <div class="black-bg" v-if="modalStatus === true">
+    <div class="white-bg">
+      <h4>{{ products[click].title }}</h4>
+      <img :src="products[click].image">
+      <p>{{ products[click].content }}</p>
+      <p>{{ products[click].price }} 원</p>
+      <!--
+      아래 코드는 에러가 날태니 잠시 주석처리를 해놓도록 합시다.
+      자식 객체에서 부모 객체의 값을 수정할 수 없습니다.
+      자세한 내용은 1-9 Custom Event챕터에서 다뤄집니다.
+      -->
+      <!--<button @click:modalStatus = false>창 닫기</button>-->
+    </div>
+  </div>
+</template>
+<style>
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+}
+
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+</style>
+
+```
+
+</details>
+
+<details>
+<summary> 📁 oneroom.js </summary>
+```js
+const products = [{
+    id: 0,
+    title: "Sinrim station 30 meters away",
+    image: "https://codingapple1.github.io/vue/room0.jpg",
+    content: "18년 신축공사한 남향 원룸 ☀️, 공기청정기 제공",
+    price: 340000
+},
+    {
+        id: 1,
+        title: "Changdong Aurora Bedroom(Queen-size)",
+        image: "https://codingapple1.github.io/vue/room1.jpg",
+        content: "침실만 따로 있는 공용 셰어하우스입니다. 최대 2인 가능",
+        price: 450000
+    },
+    {
+        id: 2,
+        title: "Geumsan Apartment Flat",
+        image: "https://codingapple1.github.io/vue/room2.jpg",
+        content: "금산오거리 역세권 아파트입니다. 애완동물 불가능 ?",
+        price: 780000
+    },
+    {
+        id: 3,
+        title: "Double styled beds Studio Apt",
+        image: "https://codingapple1.github.io/vue/room3.jpg",
+        content: "무암동인근 2인용 원룸입니다. 전세 전환가능",
+        price: 550000
+    },
+    {
+        id: 4,
+        title: "MyeongIl Apartment flat",
+        image: "https://codingapple1.github.io/vue/room4.jpg",
+        content: "탄천동 아파트 월세, 남향, 역 5분거리, 허위매물아님",
+        price: 680000
+    },
+    {
+        id: 5,
+        title: "Banziha One Room",
+        image: ("https://codingapple1.github.io/vue/room5.jpg"),
+        content: "반지하 원룸입니다. 비올 때 물가끔 새는거 빼면 좋아요",
+        price: 370000
+    }];
+
+export default products;
+```
+</details>
 
 
 </details>
