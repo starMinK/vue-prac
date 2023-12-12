@@ -986,7 +986,7 @@ export default {
             // month가 변경될때 마다 실행되는 코드
         },
         modalStatus() {
-            // modalStatus가 변경될때 마다 실행되는 코드
+            // modalStatus가 변경될때 마다 실행되는 코
         }
     }
 }
@@ -1006,8 +1006,8 @@ export default {
 
 <summary>😎 내용 보기</summary>
 
-## Transition   
-Transition는 Vue가 제공하는 애니메이션 태그입니다.
+## Transition
+<Transition>는 Vue가 제공하는 애니메이션 태그입니다.
 
 > 쌩 css로 애니메이션 제작
 ```html
@@ -1033,14 +1033,14 @@ Transition는 Vue가 제공하는 애니메이션 태그입니다.
     }
     
     .end {
-        opacity: 1; //투명도
+        opacity: 1; //투명도도
     }
 </style>
 ```
 
 <br/>
 
-> Trasition을 사용했을 때
+> <Trasition>을 사용했을 때
 ```html
 <template>
     <Transition name="modal"> 
@@ -1084,8 +1084,77 @@ Transition는 Vue가 제공하는 애니메이션 태그입니다.
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+웹에서는 여러가지 항목을들 가나다 오름차순, 내림차순, abc순, 가격순, 랭킹순등 다양한 정렬 기능이 필요할 때가 있습니다.   
+이번에는 가격순으로 항목을 나열하고 원상복구까지 하는 버튼들을 만들어 봅시다.   
 
+```html
+<button @click="priceSort()">가격순정렬</button>
+```
+
+```js
+method : {
+<!--가격순 정렬-->
+    priceSort() {
+        this.products.sort();
+    },
+    <!--가나다 내림차순-->
+    koreanSort() {
+        this.products.sort(function(a,b) {
+            return a-b;
+        }
+    },
+    <!--가나다 오름차순순-->
+    koreanSortReverse() {
+        this.products.sort(function(a,b) {
+            return b-a;
+        }
+    }
+}
+```
+
+이런식으로 간단한 js 함수를 사용하여 상품 나열이 가능하게 됩니다.   
+그럼 순서를 원래대로 할려면 어떡하면 좋을까요?   
+
+> 단순하게 데이터를 복제해놓으면 될까요?
+```html
+data() {
+    return {
+        productsOriginal: data,
+        products: data
+    }
+},
+methods : {
+    sortBack(){
+        this.products = this.productsOriginal;
+    }
+}
+```
+
+<br/>
+
+❌ 하지만 이것은  틀렸습니다.
+Arry나 Object에다가 =로 무언가를 대입하면   
+등호 왼쪽 오른쪽에 있는 array/object는 서로 값을 공유해달라는 뜻을 가지기 때문입니다.   
+
+<br/>
+그래서 우리는 array나 object 자료를 복사하거나 아니면 값공유가 일어나지 않게 집어넣고 싶으면   
+**[...array자료]**이렇게 사용합니다.
+
+> 예제
+
+```html
+data(){
+  return {
+    productsOriginal : [...data],
+    products : [...data]
+  }
+}
+methods : { 
+  sortBack(){ 
+    this.products = [...this.productsOriginal]
+  } 
+}
+```
 </details>
 
 <br/>
@@ -1100,7 +1169,29 @@ Transition는 Vue가 제공하는 애니메이션 태그입니다.
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+
+### 생명 주기(Life Cycle)표
+<p align="center"><img src="https://ko.vuejs.org/assets/lifecycle.P7awcnoo.png" height="900px" width="500px"></p>
+
+<br/>
+
+위의 lifeCycle표는 컴포넌트될때의 과정을 나타낸 표입니다.
+<br/>
+1. Creation: 컴포넌트 초기화   
+1-1. 컴포넌트들을 초기화하는 단계입니다.   
+1-2. 해당 단계에서 실행되는 훅들이 라이프사이클 중에서 가장 처음 실행됩니다.   
+1-3. 서버렌더링에서 지원되는 단계   
+1-4. 클라이언트나 서버 렌더 단에서 처리해야 할 일이 있으면 이 단계에서 진행됩니다.   
+1-5. 아직 Component가 DOM에 추가되기 전이므로 DOM에 접근되지 않습니다.   
+2. Mounting: DOM 삽입 단계   
+2-1. Mounting 단계는 초기 렌더링 직전에 컴포넌트에 직접 접근할 수 있습니다.   
+2-2. 초기 렌더링 직전에 돔을 변경하고자 한다면 이 단계에서 활용할 수 있습니다.   
+3. Updating: 컴포넌트에서 사용되는 반응형 속성들이 변경되거나 어떠한 이유로 재렌더링 발생 시 실행됩니다.    
+디버깅이나 프로파일링 등을 위해 컴포넌트 재 렌더링 시점을 알고 싶을 때 사용하면 됩니다.   
+4. Destruction: 해체 단계 (종료)   
+
+LifeCycle Hook이란 위 라이프사이클이 돌아가는 도중 중간중간에 코드를 실행시키고 싶을 때 사용됩니다.
+
 
 </details>
 
