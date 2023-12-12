@@ -118,7 +118,7 @@ export default {
 # 1-2. Vue의 반복문 v-for  
 
 <details>
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
 ```html
 <div class="menu">
@@ -201,7 +201,7 @@ export default {
 # 1-3. Vue의 이벤트 핸들러
 
 <details>
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
 ### 버튼을 누르면 기능을 실행하고 싶은 경우
 
@@ -276,7 +276,7 @@ export default {
 # 1-4. Vue의 조건문 v-if
 
 <details>
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
 Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
 ```html
@@ -320,7 +320,7 @@ Vue에서의 조건문은 태크안에 속성으로 들어갑니다.
    
 # 1-5. import/export
 <details>
-<summary>내용 보기</summary>  
+<summary>😎내용 보기</summary>  
 
 Html에서는 보편적으로 html, css, js가 전부 들어가면 코드가 너무 길어지기 때문에 파일을 분리합니다.   
 그럴때 쓰이는것이 import(불러오기)/export(내보내기)입니다.   
@@ -512,7 +512,7 @@ data(){
 # 1-7. 컴포넌트(Component)
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
 ### 컴포넌트란
 **원하는 HTML 덩어리를 한 글자로 축약**할 수 있게 도와주는 문법입니다.   
@@ -620,7 +620,7 @@ export default {
       <p>{{ products[click].content }}</p>
       <p>{{ products[click].price }} 원</p>
       <!--
-      아래 코드는 에러가 날태니 잠시 주석처리를 해놓도록 합시다.
+      아래 코드는 에러가 날 테니 잠시 주석처리를 해놓도록 합시다.
       자식 객체에서 부모 객체의 값을 수정할 수 없습니다.
       자세한 내용은 1-9 Custom Event챕터에서 다뤄집니다.
       -->
@@ -651,6 +651,7 @@ export default {
 
 <details>
 <summary> 📁 oneroom.js </summary>
+  
 ```js
 const products = [{
     id: 0,
@@ -696,10 +697,10 @@ const products = [{
     }];
 
 export default products;
+
 ```
+
 </details>
-
-
 </details>
 
 <br/>
@@ -711,10 +712,69 @@ export default products;
 # 1-8. Props
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+### Props란 
+componet를 import해올 때 자식이 부모가 가진 데이터를 쓰기위한 문법입니다.   
+Props를 사용할려면 3가지 규칙을 지켜야합니다.   
+1. 보내고   
+2. 등록하고   
+3. 사용하면 됩니다.   
 
+<br/>
+
+3번은 생략해도 에러는 나지 않습니다.    
+
+> 1. 보내기
+```html
+<!--📁 App.vue -->
+<script>
+    import products from "./assests/oneroom.js";
+
+    export default {
+        name: App,
+        data() {
+            return {
+                products: products,
+            }
+        }
+    }
+</script>
+
+<template>
+    <Modal :products="products"></Modal>
+</template>
+```
+ <br/>
+ 
+ 이런식으로 데이터바인딩 문법을 사용하면 <Modal>로 products 데이터를 보낼 수 있습니다.   
+ 콜론( : )은 데이터바인딩과 props전송 2가지 역할이 가능합니다.   
+ 
+ <br/>
+ 
+ > 2. 등록하기
+ App.vue(부모)에서 데이터를 보내주었으니 이제 Modal.vue(자식)에서 데이터를 받아 등록해 줄 차례입니다.   
+ ```html
+ <script>
+  export default {
+    name : 'Modal',
+    props : {
+      원룸들 : Array,
+    }
+  }
+</script>
+ ```
+ 
+ porps: {}를 열고 [부모객체에서 정해준 데이터명] :[자료형]의 형태로 적어주시면 됩니다.   
+ 여기서 자료형을 적을 적는 이유는 단순히 정확성때문입니다.   
+ 1. 자식 컴포넌트에서 props에 대한 자료형을 선언해 놓으면, 부모 컴포넌트에서 넘어오는 props 변수들의 자료형과 비교합니다.   
+ 2. 만약 자식 컴포넌으틔 props 자료형과 부모 컴포넌트의 props 자료형이 일치하지 않는다면, 콘솔창에서 경고 메세지로 알려줍니다.   
+ 
+ <br/>
+ 
+ > 3. props로 등록한 것들은 HTML안에서 데이터바인딩으로 자유롭게 사용이 가능합니다.   
+ > > 하지만 props로 등록된것은 사용만 가능할 뿐, 데이터 조작은 불가능합니다.   
+ > > 다음 챕터에서는 props로 등록된 데이터를 수정하기 위해 Custom Event를 알아봅시다.
 </details>
 
 <br/>
@@ -727,9 +787,9 @@ export default products;
 # 1-9. Custom Event
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
@@ -745,7 +805,7 @@ export default products;
 
 <summary>내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
@@ -759,9 +819,9 @@ export default products;
 # 1-11. 감시자 Watcher
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
@@ -775,9 +835,9 @@ export default products;
 # 1-12. Vue에서 UI 애니메이션 주기
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
@@ -791,9 +851,9 @@ export default products;
 # 1-13. 상품정렬기능, 데이터 원본 보존
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
@@ -807,9 +867,9 @@ export default products;
 # 1-14. Vue의 라이프사이클과 후크
 <details>
 
-<summary>내용 보기</summary>
+<summary>😎 내용 보기</summary>
 
-//...
+<!--작성중입니다 🤕-->
 
 </details>
 
