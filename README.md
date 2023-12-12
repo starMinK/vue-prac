@@ -769,6 +769,22 @@ Props를 사용할려면 3가지 규칙을 지켜야합니다.
  여기서 자료형을 적을 적는 이유는 단순히 정확성때문입니다.   
  1. 자식 컴포넌트에서 props에 대한 자료형을 선언해 놓으면, 부모 컴포넌트에서 넘어오는 props 변수들의 자료형과 비교합니다.   
  2. 만약 자식 컴포넌으틔 props 자료형과 부모 컴포넌트의 props 자료형이 일치하지 않는다면, 콘솔창에서 경고 메세지로 알려줍니다.   
+
+ <br/>
+
+참고로 props에서 적는 자료형은 아래와 같습니다.   
+
+```js
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
  
  <br/>
  
@@ -789,7 +805,77 @@ Props를 사용할려면 3가지 규칙을 지켜야합니다.
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+> props의 데이터를 수정하지 못하는 이유가 뭘까?
+
+(Vue 공식 문서 왈)
+모든 prop는 부모와 자식 사이에 **단방향 바인딩**을 형성합니다.   
+즉, 부모의 데이터가 업데이트 되면 자식에게도 영향을 끼치지만 반대 방향은 그렇지 않습니다.   
+이렇게 하면 하위 구성 요소(자식)이 실수로 상위 구성 요소(부모)의 상태를 변경하여 앱의 데이터 흐름을 이해하기 어렵게 만드는 것을 방지할 수 있습니다.   
+<br/>
+하지만 저희는 자식 컴포넌트에서 부모 속성을 건드리고 싶기떄문에 **custom event**라는 문법을 사용할겁니다.   
+1. 자식은 **$emit(작명, 전달할자료)** 이렇게 부모에게 메세지를 보낼 수 있습니다. 부모까지 자료를 전달하고 싶으면 선택적으로 기입이 가능합니다.   
+2. 부모는 @작명="데이터변경하는JS코드" 이렇게 메세지를 수신해서 원하는 데이터를 변경하도록 코드를 짭니다.  
+
+<br/>
+
+> 그럼 이제 컴포넌트화된 모달창의 닫기 버튼을 살려봅시다.
+
+```html
+<!--📁 App.vue-->
+<!--
+@[작명] = [데이터변경하는 JS코드]
+@[자식 컴포넌트에서 $emit('closeModal') 이라는 요청을 보내면] = ["modalStatus = flase 로 만들어라."]
+-->
+<Modal @closeModal="modalStatus = false"  />
+```
+
+<details>
+<summary>📁 Modal.vue</summary>
+
+```html
+<!--📁 Modal.vue-->
+<script>
+export default {
+  name: 'Modal',
+  props: {
+    products: Array,
+    click: Number,
+    modalStatus: Boolean,
+  },
+}
+</script>
+<template>
+  <div class="black-bg" v-if="modalStatus === true">
+    <div class="white-bg">
+      <h4>{{ products[click].title }}</h4>
+      <img :src="products[click].image">
+      <p>{{ products[click].content }}</p>
+      <p>{{ products[click].price }} 원</p>
+      <!--V 이 부분 보시면 됩니다. V-->
+      <button @click=$emit('closeModal')>창 닫기</button>
+    </div>
+  </div>
+</template>
+<style>
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+}
+
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+</style>
+
+```
+
+</details>
 
 </details>
 
@@ -805,7 +891,65 @@ Props를 사용할려면 3가지 규칙을 지켜야합니다.
 
 <summary>😎 내용 보기</summary>
 
-작성중입니다 🤕
+앱은 사용자에게 값을 입력하게하고 해당 값을 가지고 여러가지 일을 수행해내야 합니다.   
+그럴려면 우선 사용자의 데이터를 받아 값을 저장해놓아야합니다.   
+
+<br/>
+
+data()에 데이터를 담을 변수를 선언해놓고 담으면 되겠죠?
+
+> 예제입니다.
+```html
+<template>
+  <input @input="month = $event.target.value">
+</template>
+<script>
+export default {
+  data(){
+    return {
+      month : 0
+    }
+  }
+}
+</script>
+```
+<br/>
+
+1. **@input**은 input에 뭔가 __입력할 때 마다 동작__ 하는 이벤트핸들러입니다.   
+2. **$event**는 Vue가 제공하는 특별한 변수입니다. event object를 뜻합니다.   
+2-1. JS 이벤트리스너에서 __addEcentListener('click', function(e){});__ 이런 문법을 사용하는데 여기서의 **e**와 같은 의미입니다.   
+2-2. 따라서 **@event.target.value**는 input의 값(value)을 가져올 수 있게됩니다.   
+
+<br/>
+
+하지만 이것보다 쉬운 v-model 문법이 있습니다.   
+해당 속성은 input 외에 select, textarea, checkbox 등에도 사용할 수 있습니다.   
+```html
+<script>
+export default {
+    data() {
+        return {
+            month : 0,
+            checkYN: false,
+        }
+    }
+}
+</script>
+<!--입력된값이 month에 저장됩니다.-->
+<input v-model="month"> 
+
+<input type="checkbox" v-model="checkYN">
+
+<select v-model="month>
+<option value = 1>1</option>
+<option value = 2>2</option>
+<option value = 3>3</option>
+<!--(생략)-->
+<option value = 12>12</option>
+</select>
+
+<textarea v-model="month" placeholder="여기에 값을 입력하시오."></textarea>
+```
 
 </details>
 
