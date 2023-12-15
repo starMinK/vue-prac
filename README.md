@@ -23,7 +23,14 @@
 1-12. [Vue에서 UI 애니메이션 주기](#1\-12-Vue에서-UI-애니메이션-주기)  
 1-13. [상품정렬기능, 데이터 원본 보존](#1\-13-상품정렬기능-데이터-원본-보존)  
 1-14. [Vue의 라이프사이클과 후크](#1\-14-Vue의-라이프사이클과-후크)  
+
 <br/>
+
+2. PART2   
+2-1. [vue-router 설치와 기본 라우팅](#2\-1-vue\-router-설치와-기본-라우팅)   
+2-2. [URL 파라미터](#2/-2-URL-파라미터)   
+2-3. [Nested routes & push](#2/-3-Nested-routes-\&-push)   
+2-4. [Router(hash mod, guards)](#2/-4-Router(hash mod\,-guards)   
 
   ---  
   
@@ -1209,6 +1216,201 @@ beforeUnmount() //Unmount 전 실행
 unmounted() //Unmount후 실행
 ```
 
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+# 2-1. vue-router 설치와 기본 라우팅
+
+<details>
+    <summary>😎 내용 보기</summary>   
+    
+    ### Router(라우터)란   
+    
+    페이지를 여러개 만들고 url을 통해 이동을 도와주는 라이브러리입니다.   
+    
+    <br/>
+    
+    ### Router 설치하기
+    
+    ```
+    //npm install
+    $ npm install vue-router@4
+    
+    //yarn insall
+    $ yarn add vue-router@4
+    ```
+    
+    @뒤의 '4'는 버전을 의미합니다.
+    
+    > vue-router 4버전을 사용하는 이유!
+    
+    * Vue3 에서는 **createdApp** Api를 사용하는데, 이는 Vue instance에 plugin들이 추가되는 방법을 바꿧습니다.   
+    * 이 때문에 과거 버전의 Vue Router는 Vue3과 호환되지 않습니다.   
+    * Vue Router4는 Vue3에 사용 가능한 createRouter Api를 제공합니다.   
+    
+    ### Router 사용하기
+    
+    Router을 사용하기 위해서는 3단계를 지켜주셔야합니다.   
+    1. router.js에서 router.js 설정하기   
+    2. main.js에서 router.js 사용한다고 말해주기   
+    3. App.vue에서 Router template 띄워주기기   
+    
+    # 1
+    
+    > src폴더 안에 아무데나 router.js 파일을 반들고 아래 코드를 적으면 됩니다.   
+    
+    <br/>
+    
+    ```js
+    //vue-router 라이브러리에서 createWebHistory와 createRouter를 가져옵니다.
+    import { createWebHistory, createRouter } from "vue-router";
+    
+    //여기서 어떤 경로로 들어가면 어떤 페이지를 띄워줄지 결정합니다.
+    const routes = [
+        {
+            path: "/ 경로",
+            component: impor해온 컴포넌트
+        }
+    ];
+    
+    const router = createRouter({
+        history: createWebHistory(),
+        routes,
+    });
+    
+    export default router;
+    ```
+    
+    해당 코드는 Router 제작자가 정한 사용법일 뿐, 구지 이해할 필요는 없습니다.    
+    아래는 실제 사용 예시입니다.   
+    
+    <br/>
+    
+    ```js
+    //📁 router.js
+    import { createWebHistory, createRouter } from "vue-router";
+    import Info from "./components/Info.vue"
+    import Comment from "./components/Comment.vue";
+    
+    //여기서 어떤 경로로 들어가면 어떤 페이지를 띄워줄지 결정합니다.
+    const routes = [
+        {
+            path: "/comment",
+            component: Comment
+        },
+        {
+            path: "/info",
+            component: Info
+        },
+    ];
+    
+    const router = createRouter({
+        history: createWebHistory(),
+        routes,
+    });
+    
+    export default router;
+    ```
+    
+    # 2
+    이제 main.js에서 위에서 설정한 router을 사용한다고 적어줍니다.
+    
+    <br/>
+    
+    ```js
+    //📁 main.js
+    import {createApp} from 'vue';
+    import App from './App.vue';
+    import router from './router.js'; //1. router.js를 받아와줍시다.
+    
+    createApp(App).use(router).mount('#app');   //2.mount되기 전 router을 사용한다고 설정해줍시다.
+    ```
+    
+    # 3
+    이제 기본으로 실행되는 App.vue에서 링크에따라 설정해준 컴포넌트를 띄워줍시다.
+    
+    <br/>
+    
+    ```html
+    //📁 App.vue
+    <script>
+        export default {
+        name: 'App',
+          data() {
+            return {
+              posts: posts,
+            }
+          },
+          components: {
+            Nav,
+          }
+    }
+    </script>
+    
+    <template>
+        <router-link to="/comment">댓글보러 가기</router-link>
+        <router-link to="/info">자세히 보기</router-link>
+        
+        <router-view :post="post"></router-view> 
+    </template>
+    
+    <style>
+        //생략...
+    </style>
+    ```
+    
+    <br/>
+    
+    1. <router-link to="경로">는 컴파일 시 a태그로 바뀌는 태그입니다. to 속성을 통해 href 링크를 넣어줄 수 있습니다.   
+    2. <router-view>는 라우터로 구분된 페이지를 그 자리에 보여줍니다.   
+    3. :post="post"는 앞서 배웠듯 자식 컴포넌트에서 해당 데이터를 사용하기 위한 데이터바인딩입니다.   
+    <router-view>에 속성으로 넣으면 라우팅되는 모든 컴포넌트에서 사용이 가능합니다.   
+    
+    <br/>
+
+</details>
+
+---
+
+# 2-2. URL 파라미터
+<details>
+    <summary>😎 내용 보기</summary>
+    
+    //...
+    
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+# 2-3. Nested routes & push
+<details>
+    <summary>😎 내용 보기</summary>
+    
+    //...
+    
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+# 2-4. Router(hash mod, guards)
+<details>
+    <summary>😎 내용 보기</summary>
+    
+    //...
+    
 </details>
 
 <br/>
