@@ -372,7 +372,11 @@ export {apple, apple2}
 ```
 ```html
 <!--📁 App.vue-->
-import [작명] from './apple.js';
+import { apple, apple2 } from './apple.js';
+
+// 이제 apple과 apple2 변수를 사용할 수 있습니다.
+console.log(apple);  // 10 출력
+console.log(apple2); // 100 출력
 </script>
 ```
 
